@@ -1,0 +1,40 @@
+﻿@using ASPNET5ToDoList.Models;
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@model List<TodoItem>
+
+<form asp-action="Add" method="post" class="form-horizontal" role="form">
+    <h4>Adicionar Tarefa</h4>
+    <input name="Title" class="form-control" />
+    <button type="submit" class="btn btn-default">Adicionar</button>
+</form>
+
+
+<h3>Tarefas</h3>
+<hr />
+<table>
+    <tr>
+        <th>
+            Título
+        </th>
+        <th>
+            Completo
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (TodoItem todoItem in Model)
+    {
+        <tr>
+            <td>
+                @todoItem.Title
+            </td>
+            <td>
+                <input type="checkbox" checked="@todoItem.Completed" />
+            </td>
+            <td>
+                <a asp-action="ChangeState" asp-route-title="@todoItem.Title">@(todoItem.Completed ? "Incompleto" : "Feito")</a>
+                <a asp-action="Remove" asp-route-title="@todoItem.Title">Remover</a>
+            </td>
+        </tr>
+    }
+</table>
